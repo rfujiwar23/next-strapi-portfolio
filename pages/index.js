@@ -1,7 +1,12 @@
 import Layout from "../components/Layout";
 
+import fetchFromCMS from "../lib/service";
 
-export default function Home() {
+
+export default function Home({portfolioItems}) {
+
+  console.log(portfolioItems);
+
   const entries = ['Project 1', 'Project 2', 'Project 3', 'Project 4'];
   return (
     <Layout>
@@ -28,3 +33,10 @@ export default function Home() {
   );
 }
 
+export async function getStaticProps() {
+  const portfolioItems = await fetchFromCMS('portfolios');
+  return {
+    props: { portfolioItems },
+    revalidate: 1,
+  };
+}
